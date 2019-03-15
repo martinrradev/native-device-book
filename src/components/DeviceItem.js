@@ -5,11 +5,11 @@ import { CardSection } from './common';
 
 class DeviceItem extends Component {
   onRowPress() {
-    Actions.employeeEdit({ employee: this.props.employee });
+    Actions.employeeEdit({ device: this.props.device });
   }
 
   render() {
-    const { name } = this.props.employee;
+    const { name } = this.props.device;
 
     return (
       <TouchableWithoutFeedback>
@@ -22,7 +22,6 @@ class DeviceItem extends Component {
     )
   }
 }
-
 
 const styles = StyleSheet.create({
   titleStyle: {

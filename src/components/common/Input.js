@@ -6,6 +6,7 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
     <View style={styles.containerStyle}>
       <Text style={styles.labelStyle}>{label}</Text>
       <TextInput
+        autoCapitalize="none"
         value={value}
         onChangeText={onChangeText}
         autoCorrect={false}
@@ -20,21 +21,18 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
 const styles = StyleSheet.create({
   inputStyle: {
     color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
-    lineHeight: 23,
-    flex: 2
+    fontSize: 16,
+    flex: 1
   },
   labelStyle: {
-    fontSize: 18,
-    paddingLeft: 20,
-    flex: 1
+    fontSize: 14,
+    flex: 1,
+    marginBottom: 8
   },
   containerStyle: {
     height: 40,
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center'
   }
 });
