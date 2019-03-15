@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { ListView, Text, View } from 'react-native';
 import { devicesFetch } from '../actions';
@@ -7,39 +8,37 @@ import DeviceItem from './DeviceItem';
 
 class DeviceList extends Component {
 	componentWillMount() {
-    debugger;
-		// this.props.devicesFetch();
+		this.props.devicesFetch();
 
-		// this.createDataSource(this.props);
+		this.createDataSource(this.props);
 	}
 
 	componentWillReceiveProps(nextProps) {
 		// nextProps are the next set of props that this component will be rendered with
 		// this.props is still the old set of props
-		// this.createDataSource(nextProps);
+		this.createDataSource(nextProps);
 	}
 
-	createDataSource({ employees }) {
-		// const ds = new ListView.DataSource({
-		// 	rowHasChanged: (r1, r2) => r1 !== r2
-		// });
+	createDataSource({ devices }) {
+		const ds = new ListView.DataSource({
+			rowHasChanged: (r1, r2) => r1 !== r2
+		});
 
-		// this.dataSource = ds.cloneWithRows(employees);
+		this.dataSource = ds.cloneWithRows(devices);
 	}
 
-	renderRow(employee) {
-		// return <DeviceItem employee={employee} />;
+	renderRow(device) {
+		return <DeviceItem device={device} />;
 	}
 
   render() {
 		return (
       <View style={styles.container}>
-        <Text>test</Text>
-        {/* <ListView
+        <ListView
           enableEmptySections
           dataSource={this.dataSource}
           renderRow={this.renderRow}
-        /> */}
+        />
       </View>
 		);
 	}
@@ -62,12 +61,13 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-const mapStateToProps = state => {
-	// const employees = state.employees.map((val, uid) => {
-	// 	return { ...val, uid };
-	// });
 
-	return {};
+const mapStateToProps = state => {
+  const devices = _.map(state.devices, (val, uid) => {
+		return { ...val, uid };
+	});
+
+	return { devices };
 };
 
 export default connect(mapStateToProps, { devicesFetch })(DeviceList);

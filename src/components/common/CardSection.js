@@ -12,7 +12,7 @@ const CardSection = (props) => {
 const styles = StyleSheet.create({
   containerStyle: {
     borderBottomWidth: 1,
-    padding: 5,
+    padding: 8,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     flexDirection: 'row',
