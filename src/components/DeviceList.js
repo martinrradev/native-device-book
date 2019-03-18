@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { ListView, Text, View } from 'react-native';
+import { ListView, StyleSheet, View } from 'react-native';
 import { devicesFetch } from '../actions';
 import DeviceItem from './DeviceItem';
 
@@ -33,7 +32,7 @@ class DeviceList extends Component {
 
   render() {
 		return (
-      <View style={styles.container}>
+      <View>
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
@@ -43,24 +42,6 @@ class DeviceList extends Component {
 		);
 	}
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'yellow',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 const mapStateToProps = state => {
   const devices = _.map(state.devices, (val, uid) => {
