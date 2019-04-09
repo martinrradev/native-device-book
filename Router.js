@@ -7,11 +7,11 @@ const RouterComponent = () => {
   return (
     <Router sceneStyle={{ paddingTop: 65, backgroundColor: 'white' }}>
       <Scene key="root">
-        <Scene key="auth" hide>
-          <Scene key="login" component={LoginForm} title="Please login" initial></Scene>
-        </Scene>
         <Scene key="main">
-          <Scene key="deviceList" component={DeviceList} title="Employees" rightTitle="Login" onRight={() => { console.log('Right navigation for login') }}></Scene>
+          <Scene key="deviceList" component={DeviceList} title="Devices" rightTitle="Login" initial onRight={() => { console.log('Right navigation for login') }}></Scene>
+        </Scene>
+        <Scene key="auth" hide>
+          <Scene key="login" component={LoginForm} title="Please login"></Scene>
         </Scene>
       </Scene>
     </Router>

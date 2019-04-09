@@ -1,18 +1,27 @@
 const firebase = require("firebase");
 require("firebase/firestore");
-import { DEVICES_FETCH } from './types';
+import { DEVICES_FETCH_STARTED, DEVICES_FETCH_SUCCESS, DEVICES_FETCH_FAILED, DEVICES_FETCH_END } from './types';
 
 export const devicesFetch = () => {
   return (dispatch) => {
-    firebase.firestore().collection('devices').get().then((querySnapshot) => {
+    dispatch({ type: DEVICES_FETCH_STARTED });
+
+    firebase.firestore().collection('devices').get()
+    .then((querySnapshot) => {
       let payload = [];
       querySnapshot.forEach(doc => {
         const data = doc.data();
         data.id = doc.id;
 
         payload.push(data);
-      });
-      dispatch({ type: DEVICES_FETCH, payload })
+      })
+      dispatch({ type: DEVICES_FETCH_SUCCESS, payload })
+    })
+    .catch((err) => {
+      dispatch({ type: DEVICES_FETCH_FAILED, err })
+    })
+    .finally(() => {
+      dispatch({ type: DEVICES_FETCH_END })
     })
   }
 }
