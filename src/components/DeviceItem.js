@@ -53,12 +53,11 @@ class DeviceItem extends Component {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    maxWidth: 180
+    flex: 1
   },
   CardSectionContainer: {
     flexDirection: 'column',
     justifyContent: 'space-around',
-    minWidth: 180
   },
   headerTextStyle: {
     fontSize: 18

@@ -29,7 +29,7 @@ export const loginUser = ({ email, password }) => {
 
 const loginUserSuccess = (dispatch, user) => {
   dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
-  Actions.main();
+  Actions.admin();
 }
 const loginUserFail = (dispatch, error) => {
   dispatch( { type: LOGIN_USER_FAIL, payload: error });
