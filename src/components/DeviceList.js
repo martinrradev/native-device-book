@@ -1,42 +1,39 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { ListView, StyleSheet, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { devicesFetch } from '../actions';
 import DeviceItem from './DeviceItem';
+import { Spinner } from './common';
 
 class DeviceList extends Component {
 	componentWillMount() {
 		this.props.devicesFetch();
+  }
 
-		this.createDataSource(this.props);
-	}
+	keyExtractor(device) {
+		return device.id;
+  }
 
-	componentWillReceiveProps(nextProps) {
-		// nextProps are the next set of props that this component will be rendered with
-		// this.props is still the old set of props
-		this.createDataSource(nextProps);
-	}
+  showSpinner() {
+    const isloading = this.props.isLoading;
 
-	createDataSource({ devices }) {
-		const ds = new ListView.DataSource({
-			rowHasChanged: (r1, r2) => r1 !== r2
-		});
-
-		this.dataSource = ds.cloneWithRows(devices);
-	}
-
-	renderRow(device) {
-		return <DeviceItem device={device} />;
-	}
+    if (isloading) {
+      return <Spinner/>
+    }
+  }
 
   render() {
 		return (
       <View>
-        <ListView
-          enableEmptySections
-          dataSource={this.dataSource}
-          renderRow={this.renderRow}
+        {this.showSpinner()}
+
+        <FlatList
+          data={this.props.devices}
+          keyExtractor={this.keyExtractor}
+          horizontal={false}
+          numColumns={2}
+          renderItem={({item}) => <DeviceItem device={item} />}
         />
       </View>
 		);
@@ -44,11 +41,11 @@ class DeviceList extends Component {
 }
 
 const mapStateToProps = state => {
-  const devices = _.map(state.devices, (val, uid) => {
+  const devices = _.map(state.devices.list, (val, uid) => {
 		return { ...val, uid };
 	});
 
-	return { devices };
+	return { devices, isLoading: state.devices.loading };
 };
 
 export default connect(mapStateToProps, { devicesFetch })(DeviceList);
