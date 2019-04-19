@@ -2,7 +2,7 @@ import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './src/components/LoginForm';
 import DeviceList from './src/components/DeviceList';
-import DeviceControl from './src/components/DeviceControl';
+import AdminPanel from './src/components/AdminPanel';
 import DeviceForm from './src/components/DeviceForm';
 
 const RouterComponent = () => {
@@ -16,7 +16,7 @@ const RouterComponent = () => {
           <Scene key="login" component={LoginForm} title="Please login"></Scene>
         </Scene>
         <Scene key="admin" hide>
-          <Scene key="deviceControl" component={DeviceControl} title="Devices" rightTitle="Create" onRight={() => Actions.createDevice()}></Scene>
+          <Scene key="adminPanel" component={AdminPanel} title="Devices" rightTitle="Create" onRight={() => Actions.createDevice()}></Scene>
           <Scene key="createDevice" component={DeviceForm} title="Create Device" rightTitle="Create"></Scene>
         </Scene>
       </Scene>
