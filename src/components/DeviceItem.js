@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, TouchableWithoutFeedback, View, Image } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { Card, CardSection, Button  } from './common';
+import { Card, CardSection } from './common';
+import DeviceItemControls from './DeviceItemControls';
+
 class DeviceItem extends Component {
-  onRowPress() {
-    Actions.employeeEdit({ device: this.props.device });
-  }
+  // could be state less component
 
   deviceStatus() {
     const { bookedBy } = this.props.device;
+
     if (bookedBy) {
       return <Text>Booked</Text>;
     } else {
@@ -17,6 +17,8 @@ class DeviceItem extends Component {
   }
 
   render() {
+    const user = this.props.user;
+    const device = this.props.device;
     const {
       batteryStatus,
       bookedBy,
@@ -41,9 +43,7 @@ class DeviceItem extends Component {
                 <Text>{bookedBy}</Text>
                 <Text>{dateofBook}</Text>
               </CardSection>
-              <CardSection style={styles.CardSectionContainer}>
-                <Button style={ styles.test } onPress={() => {}}>Book Device</Button>
-              </CardSection>
+              <DeviceItemControls device={device} user={user}/>
             </View>
           </Card>
       </TouchableWithoutFeedback>
@@ -53,12 +53,11 @@ class DeviceItem extends Component {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    maxWidth: 180
+    flex: 1
   },
   CardSectionContainer: {
     flexDirection: 'column',
     justifyContent: 'space-around',
-    minWidth: 180
   },
   headerTextStyle: {
     fontSize: 18
