@@ -7,14 +7,31 @@ import DeviceItem from './DeviceItem';
 import { Spinner } from './common';
 
 class DeviceList extends Component {
+  /**
+   * componentWillMount lifecycle hook
+   *
+   * @method componentWillMount
+   */
 	componentWillMount() {
 		this.props.devicesFetch();
   }
 
+  /**
+   * Accept object and return object id
+   *
+   * @method keyExtractor
+   * @return {Integer} id
+   */
 	keyExtractor(device) {
 		return device.id;
   }
 
+  /**
+   * Check for store flag 'isLoading'
+   *
+   * @method showSpinner
+   * @return {Object} Spinner
+   */
   showSpinner() {
     const isloading = this.props.isLoading;
 
@@ -23,6 +40,12 @@ class DeviceList extends Component {
     }
   }
 
+  /**
+   * render lifecycle hook
+   *
+   * @method render
+   * @return {Object}
+   */
   render() {
 		return (
       <View>
