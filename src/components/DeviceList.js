@@ -64,8 +64,8 @@ class DeviceList extends Component {
 }
 
 const mapStateToProps = state => {
-  const devices = _.map(state.devices.list, (val, uid) => {
-		return { ...val, uid };
+  const devices = _.map(state.devices.list, (val, id) => {
+		return { ...val, id };
 	});
 
 	return { devices, isLoading: state.devices.loading };

@@ -3,17 +3,17 @@ import { Text, View, Modal, StyleSheet } from 'react-native';
 import { Button } from './Button';
 import { CardSection } from './CardSection';
 
-const Confirm = ({ children, visible, onConfirm, onCancel }) => {
+const Confirm = ({ children, visible, transparent, onConfirm, onCancel, confirmText = 'Yes', cancelText = 'No' }) => {
   return (
-    <Modal transparent={visible} animationType="slide" onRequestClose={() => {}}>
+    <Modal visible={visible} transparent={transparent} animationType="slide" onRequestClose={() => {}}>
       <View style={styles.containerStyle}>
         <CardSection style={styles.cardSectionStyle}>
           <Text style={styles.textStyle}>{children}</Text>
         </CardSection>
 
         <CardSection>
-          <Button onPress={onConfirm}>Yes</Button>
-          <Button onPress={onCancel}>No</Button>
+          <Button onPress={onConfirm}>{confirmText}</Button>
+          <Button onPress={onCancel}>{cancelText}</Button>
         </CardSection>
       </View>
     </Modal>
