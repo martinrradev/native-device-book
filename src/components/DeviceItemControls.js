@@ -6,8 +6,16 @@ import { connect } from 'react-redux';
 import { deleteDevice } from '../actions';
 
 class DeviceItemControls extends Component {
-  // temporary only for test purpose, later move in to reducer as store flag
-  state = { showModal: false };
+  /**
+   * General component constructor
+   *
+   * @method constructor
+   */
+  constructor(props) {
+    super(props);
+
+    this.state = { showModal: false };
+  }
 
   /**
    * Send device delete request
@@ -16,9 +24,6 @@ class DeviceItemControls extends Component {
    * @return {Obejct} TODO: to be updated
    */
   delete(device) {
-    console.log('Device ', device.name, ' will be deleted');
-
-    // use connect to inject the store and get access to the store
     this.setState({ showModal: false });
     this.props.deleteDevice(device);
   }
@@ -26,10 +31,10 @@ class DeviceItemControls extends Component {
   /**
    * Navigate to edin screen and pass specific device
    *
-   * @method editDevice
+   * @method edit
    */
-  editDevice(device) {
-    // Actions.employeeEdit({ device });
+  edit(device) {
+    Actions.deviceForm({ device });
   }
 
   /**
@@ -54,7 +59,7 @@ class DeviceItemControls extends Component {
       return (
         <View>
           <CardSection style={styles.CardSectionContainer}>
-            <Button style={ styles.test } onPress={() => {}}>Edit Device</Button>
+            <Button style={ styles.test } onPress={() => this.edit(device)}>Edit Device</Button>
           </CardSection>
           <CardSection style={styles.CardSectionContainer}>
             <Button style={ styles.test } onPress={() => this.setState({ showModal: true })}>Delete Device</Button>
