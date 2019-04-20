@@ -5,13 +5,31 @@ import { connect } from 'react-redux';
 import DeviceItem from './DeviceItem';
 
 class AdminPanel extends Component {
+  /**
+   * componentWillMount lifecycle hook
+   *
+   * @method componentWillMount
+   * @return {Promise}
+   */
 	componentWillMount() {
   }
 
+  /**
+   * Accept object and return object id
+   *
+   * @method keyExtractor
+   * @return {Integer} id
+   */
 	keyExtractor(device) {
 		return device.id;
   }
 
+  /**
+   * render lifecycle hook
+   *
+   * @method render
+   * @return {Object}
+   */
   render() {
     const devices = this.props.devices;
     const user = this.props.user;

@@ -6,6 +6,12 @@ import DeviceItemControls from './DeviceItemControls';
 class DeviceItem extends Component {
   // could be state less component
 
+  /**
+   * Return device status based on bookedBy
+   *
+   * @method deviceStatus
+   * @return {Obejct} Status
+   */
   deviceStatus() {
     const { bookedBy } = this.props.device;
 
@@ -16,6 +22,12 @@ class DeviceItem extends Component {
     }
   }
 
+  /**
+   * render lifecycle hook
+   *
+   * @method render
+   * @return {Object}
+   */
   render() {
     const user = this.props.user;
     const device = this.props.device;

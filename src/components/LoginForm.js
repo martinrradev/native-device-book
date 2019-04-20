@@ -8,20 +8,41 @@ import { emailChanged, passwordChanged, loginUser } from '../actions';
 const remote = 'https://cdn.stocksnap.io/img-thumbs/960w/BRZWV3H148.jpg';
 
 class LoginForm extends Component {
+  /**
+   * Trigger store update on email change
+   *
+   * @method onEmailChange
+   */
   onEmailChange(email) {
     this.props.emailChanged(email);
   }
 
+  /**
+   * Trigger store update on password change
+   *
+   * @method onPasswordChange
+   */
   onPasswordChange(password) {
     this.props.passwordChanged(password);
   }
 
+  /**
+   * Send request for auth with email and passw
+   *
+   * @method onButtonPress
+   */
   onButtonPress() {
     const { email, password } = this.props;
 
     this.props.loginUser({ email, password });
   }
 
+  /**
+   * Check for store flag 'еrror'
+   *
+   * @method renderError
+   * @return {Obejct}
+   */
   renderError() {
     const error = this.props.error;
 
@@ -36,6 +57,12 @@ class LoginForm extends Component {
     }
   }
 
+  /**
+   * Check for store flag 'loading'
+   *
+   * @method showSpinner
+   * @return {Object} Spinner
+   */
   showSpinner() {
     const isLoading = this.props.loading;
 
@@ -46,6 +73,12 @@ class LoginForm extends Component {
     }
   }
 
+  /**
+   * render lifecycle hook
+   *
+   * @method render
+   * @return {Object}
+   */
   render() {
     return (
       <View style={styles.containerStyle}>

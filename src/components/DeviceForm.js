@@ -3,6 +3,12 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Card, CardSection, Button  } from './common';
 
 class DeviceForm extends Component {
+  /**
+   * render lifecycle hook
+   *
+   * @method render
+   * @return {Object}
+   */
   render() {
     return (
       <View style={styles.cardContainer}>
