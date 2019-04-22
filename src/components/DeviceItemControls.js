@@ -3,11 +3,19 @@ import { View, StyleSheet } from 'react-native';
 import { Button, CardSection, Confirm } from './common';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { deleteDevice } from '../actions';
+import { deleteDevice, updateDevice } from '../actions';
 
 class DeviceItemControls extends Component {
-  // temporary only for test purpose, later move in to reducer as store flag
-  state = { showModal: false };
+  /**
+   * General component constructor
+   *
+   * @method constructor
+   */
+  constructor(props) {
+    super(props);
+
+    this.state = { showModal: false };
+  }
 
   /**
    * Send device delete request
@@ -16,9 +24,6 @@ class DeviceItemControls extends Component {
    * @return {Obejct} TODO: to be updated
    */
   delete(device) {
-    console.log('Device ', device.name, ' will be deleted');
-
-    // use connect to inject the store and get access to the store
     this.setState({ showModal: false });
     this.props.deleteDevice(device);
   }
@@ -26,10 +31,20 @@ class DeviceItemControls extends Component {
   /**
    * Navigate to edin screen and pass specific device
    *
-   * @method editDevice
+   * @method edit
    */
-  editDevice(device) {
-    // Actions.employeeEdit({ device });
+  edit(device) {
+    Actions.deviceForm({ device });
+  }
+
+  /**
+   * Show booking controls to the user
+   *
+   * @method book TODO: to be updated
+   */
+  book(device) {
+    // TODO: to be updated
+    console.log('book action for ', device.name);
   }
 
   /**
@@ -39,6 +54,7 @@ class DeviceItemControls extends Component {
    * @return {Obejct} TODO: to be updated
    */
   bookDevice(device) {
+    // TODO: to be updated
     // use connect to inject the store and get access to the store
 		// this.props.devicesBook(device);
   }
@@ -54,7 +70,7 @@ class DeviceItemControls extends Component {
       return (
         <View>
           <CardSection style={styles.CardSectionContainer}>
-            <Button style={ styles.test } onPress={() => {}}>Edit Device</Button>
+            <Button style={ styles.test } onPress={() => this.edit(device)}>Edit Device</Button>
           </CardSection>
           <CardSection style={styles.CardSectionContainer}>
             <Button style={ styles.test } onPress={() => this.setState({ showModal: true })}>Delete Device</Button>
@@ -73,6 +89,24 @@ class DeviceItemControls extends Component {
   }
 
   /**
+   * Check if user is auth and show booking controls
+   *
+   * @method showBookControls
+   * @return {Obejct}
+   */
+  showBookControls(user, device) {
+    if (user) {
+      return (
+        <View>
+          <CardSection style={styles.CardSectionContainer}>
+            <Button style={ styles.test } onPress={() => this.book(device)}>Book Device</Button>
+          </CardSection>
+        </View>
+      )
+    }
+  }
+
+  /**
    * render lifecycle hook
    *
    * @method render
@@ -85,9 +119,7 @@ class DeviceItemControls extends Component {
     return (
       <View>
         {this.showAdminControls(user, device)}
-        <CardSection style={styles.CardSectionContainer}>
-          <Button style={ styles.test } onPress={() => {}}>Book Device</Button>
-        </CardSection>
+        {this.showBookControls(user, device)}
       </View>
     );
   }
@@ -103,4 +135,4 @@ const mapStateToProps = state => {
 	return { devices: state.devices.list };
 };
 
-export default connect(mapStateToProps, { deleteDevice })(DeviceItemControls);
+export default connect(mapStateToProps, { deleteDevice, updateDevice })(DeviceItemControls);

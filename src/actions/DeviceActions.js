@@ -6,7 +6,9 @@ import {
   DEVICES_FETCH_SUCCESS,
   DEVICES_FETCH_FAILED,
   DEVICE_DELETE_SUCCESS,
-  DEVICE_DELETE_FAILED
+  DEVICE_DELETE_FAILED,
+  DEVICE_UPDATE_SUCCESS,
+  DEVICE_UPDATE_FAILED
 } from './types';
 
 /**
@@ -59,6 +61,33 @@ export const deleteDevice = ({ id }) => {
     })
     .catch((err) => {
       dispatch({ type: DEVICE_DELETE_FAILED, err })
+    })
+    .finally(() => {
+      dispatch({ type: DEVICES_REQUEST_END })
+    })
+  }
+}
+
+/**
+ * Send update request and update store, call toast events
+ *
+ * @method updateDevice
+ * @return {Obejct} the new state
+ */
+export const updateDevice = ({ id }) => {
+  return (dispatch) => {
+    dispatch({ type: DEVICES_REQUEST_STARTED });
+
+    firebase.firestore().collection('devices').doc(id)
+    .get()
+    .then((document) => {
+      return document.ref.delete();
+    })
+    .then(() => {
+      dispatch({ type: DEVICE_UPDATE_SUCCESS, id })
+    })
+    .catch((err) => {
+      dispatch({ type: DEVICE_UPDATE_FAILED, err })
     })
     .finally(() => {
       dispatch({ type: DEVICES_REQUEST_END })

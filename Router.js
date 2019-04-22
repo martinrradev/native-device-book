@@ -17,7 +17,7 @@ const RouterComponent = () => {
         </Scene>
         <Scene key="admin" hide>
           <Scene key="adminPanel" component={AdminPanel} title="Devices" rightTitle="Create" onRight={() => Actions.createDevice()}></Scene>
-          <Scene key="createDevice" component={DeviceForm} title="Create Device" rightTitle="Create"></Scene>
+          <Scene key="deviceForm" component={DeviceForm} title="Create Device" rightTitle="Create"></Scene>
         </Scene>
       </Scene>
     </Router>
