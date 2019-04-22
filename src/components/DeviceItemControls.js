@@ -95,7 +95,7 @@ class DeviceItemControls extends Component {
    * @return {Obejct}
    */
   showBookControls(user, device) {
-    if (user) {
+    if (!user) {
       return (
         <View>
           <CardSection style={styles.CardSectionContainer}>
