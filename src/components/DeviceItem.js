@@ -77,11 +77,6 @@ const styles = StyleSheet.create({
   imageStyle: {
     height: 200,
     flex: 1
-  },
-  test: {
-    alignSelf: 'auto',
-    margin: 0,
-    padding: 0
   }
 })
 

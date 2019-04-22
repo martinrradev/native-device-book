@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Button, CardSection, Confirm } from './common';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { deleteDevice } from '../actions';
+import { deleteDevice, updateDevice } from '../actions';
 
 class DeviceItemControls extends Component {
   /**
@@ -38,12 +38,23 @@ class DeviceItemControls extends Component {
   }
 
   /**
+   * Show booking controls to the user
+   *
+   * @method book TODO: to be updated
+   */
+  book(device) {
+    // TODO: to be updated
+    console.log('book action for ', device.name);
+  }
+
+  /**
    * Send update request and book device
    *
    * @method bookDevice
    * @return {Obejct} TODO: to be updated
    */
   bookDevice(device) {
+    // TODO: to be updated
     // use connect to inject the store and get access to the store
 		// this.props.devicesBook(device);
   }
@@ -78,6 +89,24 @@ class DeviceItemControls extends Component {
   }
 
   /**
+   * Check if user is auth and show booking controls
+   *
+   * @method showBookControls
+   * @return {Obejct}
+   */
+  showBookControls(user, device) {
+    if (user) {
+      return (
+        <View>
+          <CardSection style={styles.CardSectionContainer}>
+            <Button style={ styles.test } onPress={() => this.book(device)}>Book Device</Button>
+          </CardSection>
+        </View>
+      )
+    }
+  }
+
+  /**
    * render lifecycle hook
    *
    * @method render
@@ -90,9 +119,7 @@ class DeviceItemControls extends Component {
     return (
       <View>
         {this.showAdminControls(user, device)}
-        <CardSection style={styles.CardSectionContainer}>
-          <Button style={ styles.test } onPress={() => {}}>Book Device</Button>
-        </CardSection>
+        {this.showBookControls(user, device)}
       </View>
     );
   }
@@ -108,4 +135,4 @@ const mapStateToProps = state => {
 	return { devices: state.devices.list };
 };
 
-export default connect(mapStateToProps, { deleteDevice })(DeviceItemControls);
+export default connect(mapStateToProps, { deleteDevice, updateDevice })(DeviceItemControls);
