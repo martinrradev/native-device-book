@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, Dimensions, TouchableWithoutFeedback } from 'react-native';
-import { Card, CardSection, Input } from './common';
+import { View, Image, StyleSheet, ScrollView } from 'react-native';
+import { Card, CardSection, Input, Button } from './common';
 
-class DeviceForm extends Component {
+class DeviceEditForm extends Component {
+  /**
+   * Show booking controls to the user
+   *
+   * @param {Object} device
+   * @method edit
+   */
+  edit(device) {
+    console.log('Book', device);
+  }
+
   /**
    * render lifecycle hook
    *
@@ -13,7 +23,7 @@ class DeviceForm extends Component {
     const device = this.props.device;
 
     return (
-      <TouchableWithoutFeedback>
+      <ScrollView>
         <View style={styles.cardContainer}>
           <Card>
             <CardSection>
@@ -34,14 +44,15 @@ class DeviceForm extends Component {
             <CardSection>
               <Input label="Type:" placeholder="phone" onChangeText={() => {}} value={device.type}></Input>
             </CardSection>
+            <CardSection style={styles.CardSectionContainer}>
+              <Button onPress={() => this.edit(device)}>Edit</Button>
+            </CardSection>
           </Card>
         </View>
-      </TouchableWithoutFeedback>
+      </ScrollView>
     );
   }
 }
-
-const win = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -55,4 +66,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DeviceForm;
+export default DeviceEditForm;

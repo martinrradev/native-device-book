@@ -18,3 +18,4 @@ export const DEVICE_DELETE_SUCCESS = 'device_delete_success';
 export const DEVICE_DELETE_FAILED = 'device_delete_failed';
 export const DEVICE_UPDATE_SUCCESS = 'device_update_success';
 export const DEVICE_UPDATE_FAILED = 'device_update_failed';
+export const DEVICE_BOOKING = 'device_booking';
