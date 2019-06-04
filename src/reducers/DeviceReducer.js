@@ -6,10 +6,11 @@ import {
   DEVICE_DELETE_SUCCESS,
   DEVICE_DELETE_FAILED,
   DEVICE_UPDATE_SUCCESS,
-  DEVICE_UPDATE_FAILED
+  DEVICE_UPDATE_FAILED,
+  DEVICE_BOOKING
 } from '../actions/types';
 
-const INITIAL_STATE = { list: [], loading: '' };
+const INITIAL_STATE = { list: [], loading: '', booking: '' };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
@@ -20,7 +21,7 @@ export default (state = INITIAL_STATE, action) => {
 		case DEVICES_FETCH_SUCCESS:
       return Object.assign({}, state, { list: action.payload });
   	case DEVICES_FETCH_FAILED:
-      return Object.assign({}, state, INITIAL_STATE); // needs to be updated
+      return Object.assign({}, state, INITIAL_STATE);
     case DEVICE_DELETE_SUCCESS:
       const devices = state.list;
       const deletedIndex = devices.findIndex(device => device.id === action.id);
@@ -32,11 +33,13 @@ export default (state = INITIAL_STATE, action) => {
       ]
     });
     case DEVICE_DELETE_FAILED:
-      return Object.assign({}, state, INITIAL_STATE); // needs to be updated
+      return Object.assign({}, state, INITIAL_STATE);
     case DEVICE_UPDATE_SUCCESS:
-      return Object.assign({}, state, { list: action.payload });
+      return Object.assign({}, state, { list: action.payload }); // needs to be updated
     case DEVICE_UPDATE_FAILED:
       return Object.assign({}, state, INITIAL_STATE); // needs to be updated
+    case DEVICE_BOOKING:
+      return Object.assign({}, state, { booking: action.booking });
 		default:
 			return state;
 	}

@@ -8,7 +8,8 @@ import {
   DEVICE_DELETE_SUCCESS,
   DEVICE_DELETE_FAILED,
   DEVICE_UPDATE_SUCCESS,
-  DEVICE_UPDATE_FAILED
+  DEVICE_UPDATE_FAILED,
+  DEVICE_BOOKING
 } from './types';
 
 /**
@@ -92,5 +93,30 @@ export const updateDevice = ({ id }) => {
     .finally(() => {
       dispatch({ type: DEVICES_REQUEST_END })
     })
+  }
+}
+
+/**
+ * Send update request and update store, call toast events
+ *
+ * @method bookDevice
+ * @return {Obejct} the new state
+ */
+export const bookDevice = (booking) => {
+  return (dispatch) => {
+    dispatch({ type: DEVICE_BOOKING, booking });
+  }
+}
+
+
+/**
+ * Send update request and update store, call toast events
+ *
+ * @method returnDevice
+ * @return {Obejct} the new state
+ */
+export const returnDevice = (booking) => {
+  return (dispatch) => {
+    dispatch({ type: DEVICE_BOOKING, booking });
   }
 }
