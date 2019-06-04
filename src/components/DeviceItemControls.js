@@ -100,7 +100,7 @@ class DeviceItemControls extends Component {
    * @method showBookingControls
    * @return {Obejct}
    */
-  showBookingControls(user, device) {
+  showBookControls(user, device) {
     if (!user) {
       return (
         <View>
