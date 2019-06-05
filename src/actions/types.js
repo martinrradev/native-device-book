@@ -4,6 +4,7 @@ export const LOGIN_USER = 'login_user';
 export const LOGIN_USER_SUCCESS = 'login_user_success'
 export const LOGIN_USER_FAIL = 'login_user_fail';
 
+// DEVICES
 export const DEVICE_UPDATE = 'device_update';
 export const DEVICE_CREATE = 'device_create';
 export const DEVICE_SAVE = 'device_save';
@@ -18,4 +19,9 @@ export const DEVICE_DELETE_SUCCESS = 'device_delete_success';
 export const DEVICE_DELETE_FAILED = 'device_delete_failed';
 export const DEVICE_UPDATE_SUCCESS = 'device_update_success';
 export const DEVICE_UPDATE_FAILED = 'device_update_failed';
-export const DEVICE_BOOKING = 'device_booking';
+
+// TEAMS
+export const TEAMS_REQUEST_STARTED = 'teams_request_started';
+export const TEAMS_REQUEST_END = 'teams_request_end';
+export const TEAMS_FETCH_SUCCESS = 'teams_fetch_success';
+export const TEAMS_FETCH_FAILED = 'teams_fetch_failed';

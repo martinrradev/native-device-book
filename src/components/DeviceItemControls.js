@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, CardSection, Confirm } from './common';
+import _ from 'lodash';
+import { Button, CardSection, Confirm, Spinner } from './common';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-import { deleteDevice, returnDevice } from '../actions';
+import { updateDevice, deleteDevice } from '../actions';
 
 class DeviceItemControls extends Component {
   /**
@@ -37,32 +38,31 @@ class DeviceItemControls extends Component {
    * @param {Object} device
    * @method return
    */
-  return(device) {
-    // TODO
-    console.log('Return device ', device.name);
-		// this.props.returnDevice(device);
+  edit(device) {
+    Actions.deviceFormAdmin({ device , isBooking: false });
   }
 
   /**
    * Navigate to edin screen and pass specific device
    *
-   * @param {Object} device
-   * @method edit
-   */
-  edit(device) {
-    console.log('Navigate to edit form ', device.name);
-    Actions.deviceEditForm({ device });
-  }
-
-  /**
-   * Show booking controls to the user
-   *
-   * @param {Object} device
    * @method book
    */
   book(device) {
-    console.log('Navigate to booking form ', device.name);
-    Actions.deviceBookForm({ device });
+    console.log('book', device);
+    Actions.deviceFormMain({ device, isBooking: true });
+  }
+
+  /**
+   * Send update device and send request
+   *
+   * @method returnDevice
+   * @return {Obejct}
+   */
+  returnDevice(device) {
+    device.bookedBy = '';
+    device.dateOfBook = '';
+
+		this.props.updateDevice(device);
   }
 
   /**
@@ -104,15 +104,45 @@ class DeviceItemControls extends Component {
     if (!user) {
       return (
         <View>
-          <CardSection style={styles.CardSectionContainer}>
-            {device.bookedBy ? (
-              <Button onPress={() => this.return(device)}>Return Device</Button>
-            ) : (
-              <Button onPress={() => this.book(device)}>Book Device</Button>
-            )}
-          </CardSection>
+          {this.switchBookingControls(device)}
         </View>
       )
+    }
+  }
+
+  /**
+   * Check if device is booked and show relevant button
+   *
+   * @method switchBookingControls
+   * @return {Obejct}
+   */
+  switchBookingControls(device) {
+    if (device && device.bookedBy) {
+      return (
+        <CardSection style={styles.CardSectionContainer}>
+          <Button style={ styles.test } onPress={() => this.returnDevice(device)}>Return Device</Button>
+        </CardSection>
+        )
+    } else {
+      return (
+        <CardSection style={styles.CardSectionContainer}>
+          <Button style={ styles.test } onPress={() => this.book(device)}>Book Device</Button>
+        </CardSection>
+       )
+    }
+  }
+
+  /**
+   * Check for store flag 'isLoading'
+   *
+   * @method showSpinner
+   * @return {Object} Spinner
+   */
+  showSpinner() {
+    const isloading = this.props.isLoading;
+
+    if (isloading) {
+      return <Spinner/>
     }
   }
 
@@ -128,8 +158,9 @@ class DeviceItemControls extends Component {
 
     return (
       <View>
+        {this.showSpinner()}
         {this.showAdminControls(user, device)}
-        {this.showBookingControls(user, device)}
+        {this.showBookControls(user, device)}
       </View>
     );
   }
@@ -141,8 +172,9 @@ const styles = StyleSheet.create({
   }
 })
 
+
 const mapStateToProps = state => {
-	return { devices: state.devices.list, booking: state.devices.booking };
+	return { state };
 };
 
-export default connect(mapStateToProps, { deleteDevice, returnDevice })(DeviceItemControls);
+export default connect(mapStateToProps, { updateDevice, deleteDevice })(DeviceItemControls);
