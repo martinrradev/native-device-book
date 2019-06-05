@@ -6,15 +6,6 @@ import DeviceItem from './DeviceItem';
 
 class AdminPanel extends Component {
   /**
-   * componentWillMount lifecycle hook
-   *
-   * @method componentWillMount
-   * @return {Promise}
-   */
-	componentWillMount() {
-  }
-
-  /**
    * Accept object and return object id
    *
    * @method keyExtractor
@@ -47,12 +38,6 @@ class AdminPanel extends Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    flex: 1
-  }
-})
 
 const mapStateToProps = state => {
 	return { devices: state.devices.list, user: state.auth.user.user };

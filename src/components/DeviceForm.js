@@ -7,16 +7,6 @@ import _ from 'lodash';
 
 class DeviceForm extends Component {
   /**
-   * Show booking controls to the user
-   *
-   * @param {Object} device
-   * @method edit
-   */
-  edit(device) {
-    console.log('Book', device);
-  }
-
-  /**
    * General component constructor
    *
    * @method constructor
@@ -24,15 +14,15 @@ class DeviceForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { team: 1, member: 1 };
+    this.state = { team: null, member: null };
   }
 
   /**
-   * componentWillMount lifecycle hook
+   * componentDidMount lifecycle hook
    *
-   * @method componentWillMount
+   * @method componentDidMount
    */
-	componentWillMount() {
+	componentDidMount() {
     const isBooking = this.props.isBooking;
 
     if (isBooking) {
@@ -54,6 +44,16 @@ class DeviceForm extends Component {
   }
 
   /**
+   * Show editing controls to the user
+   *
+   * @param {Object} device
+   * @method editDevice
+   */
+  editDevice(device) {
+    console.log('Edit', device);
+  }
+
+  /**
    * Check for store flag 'isLoading'
    *
    * @method showSpinner
@@ -70,6 +70,26 @@ class DeviceForm extends Component {
   }
 
   /**
+   * Check for store flag 'isLoading'
+   *
+   * @method bookDeviceBtnStatus
+   * @default false
+   * @return {Object} Button
+   */
+  bookDeviceBtn(device) {
+    debugger;
+    if (this.state.team && this.state.member) {
+      return (
+        <CardSection style={styles.CardSectionContainer}>
+          <Button style={ styles.test } onPress={() => this.bookDevice(device)}>Book Device</Button>
+        </CardSection>
+      )
+    }
+
+    return false;
+  }
+
+  /**
    * Check if device is booked and show relevant button
    *
    * @method loadDeviceForm
@@ -83,49 +103,49 @@ class DeviceForm extends Component {
       name,
       os,
       type
-    } = this.props.device;
+    } = device;
 
     if (isBooking) {
       return (
         <ScrollView>
-            <Card style={styles.cardContainer}>
-              <View style={styles.headerContainer}>
-                <CardSection style={styles.CardSectionContainer}>
-                  <Image style={styles.imageStyle} source={{ uri: firebaseImgURL }}/>
-                </CardSection>
-                <CardSection style={styles.CardSectionContainer}>
-                  <Text style={styles.headerTextStyle}>{manufacturer}</Text>
-                </CardSection>
-                <CardSection style={styles.CardSectionContainer}>
-                  <Text style={styles.headerTextStyle}>{name}</Text>
-                </CardSection>
-                <CardSection style={styles.CardSectionContainer}>
-                  <Picker
-                    selectedValue={this.state.team}
-                    style={{ flex: 1 }}
-                    onValueChange={(itemValue, itemIndex) =>
-                      this.setState({ team: itemValue })
-                    }>
-                    <Picker.Item label="ELFS" value="ELFS" />
-                  </Picker>
-                </CardSection>
-                <CardSection style={styles.CardSectionContainer}>
-                  <Picker
-                    selectedValue={this.state.member}
-                    style={{ flex: 1 }}
-                    onValueChange={(itemValue, itemIndex) =>
-                      this.setState({ member: itemValue })
-                    }>
-                    <Picker.Item label="Martin Radev" value="Martin Radev" />
-                    <Picker.Item label="Martin Petrov" value="Martin Petrov" />
-                  </Picker>
-                </CardSection>
-                <CardSection style={styles.CardSectionContainer}>
-                  <Button style={ styles.test } onPress={() => this.bookDevice(device)}>Book Device</Button>
-                </CardSection>
-              </View>
-            </Card>
-          </ScrollView>
+          <Card style={styles.cardContainer}>
+            <View style={styles.headerContainer}>
+              <CardSection style={styles.CardSectionContainer}>
+                <Image style={styles.imageStyle} source={{ uri: firebaseImgURL }}/>
+              </CardSection>
+              <CardSection style={styles.CardSectionContainer}>
+                <Text style={styles.headerTextStyle}>{manufacturer}</Text>
+              </CardSection>
+              <CardSection style={styles.CardSectionContainer}>
+                <Text style={styles.headerTextStyle}>{name}</Text>
+              </CardSection>
+              <CardSection style={styles.CardSectionContainer}>
+                <Picker
+                  selectedValue={this.state.team}
+                  style={{ flex: 1 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ team: itemValue })
+                  }>
+                  <Picker.Item label="" value="" />
+                  <Picker.Item label="ELFS" value="ELFS" />
+                </Picker>
+              </CardSection>
+              <CardSection style={styles.CardSectionContainer}>
+                <Picker
+                  selectedValue={this.state.member}
+                  style={{ flex: 1 }}
+                  onValueChange={(itemValue, itemIndex) =>
+                    this.setState({ member: itemValue })
+                  }>
+                  <Picker.Item label="" value="" />
+                  <Picker.Item label="Martin Radev" value="Martin Radev" />
+                  <Picker.Item label="Martin Petrov" value="Martin Petrov" />
+                </Picker>
+              </CardSection>
+              {this.bookDeviceBtn(device)}
+            </View>
+          </Card>
+        </ScrollView>
         )
     } else {
       return (

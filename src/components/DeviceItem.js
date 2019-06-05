@@ -4,7 +4,7 @@ import { Card, CardSection } from './common';
 import DeviceItemControls from './DeviceItemControls';
 
 class DeviceItem extends Component {
-  // could be state less component
+  // TODO: could be state less component
 
   /**
    * Return device status based on bookedBy
@@ -16,9 +16,9 @@ class DeviceItem extends Component {
     const { bookedBy } = this.props.device;
 
     if (bookedBy) {
-      return <Text>Booked</Text>;
+      return <Text style={styles.statusTextRedStyle}>Booked</Text>;
     } else {
-      return <Text>Available</Text>;
+      return <Text style={styles.statusTextGreenStyle}>Available</Text>;
     }
   }
 
@@ -31,29 +31,21 @@ class DeviceItem extends Component {
   render() {
     const user = this.props.user;
     const device = this.props.device;
-    const {
-      batteryStatus,
-      bookedBy,
-      dateofBook,
-      firebaseImgURL,
-      name,
-      os,
-    } = this.props.device;
 
     return (
       <TouchableWithoutFeedback>
           <Card style={styles.cardContainer}>
             <View style={styles.headerContainer}>
               <CardSection style={styles.CardSectionContainer}>
-                <Image style={styles.imageStyle} source={{ uri: firebaseImgURL }}/>
+                <Image style={styles.imageStyle} source={{ uri: device.firebaseImgURL }}/>
               </CardSection>
               <CardSection style={styles.CardSectionContainer}>
-                <Text style={styles.headerTextStyle}>{name}</Text>
+                <Text style={styles.headerTextStyle}>{device.name}</Text>
                 {this.deviceStatus()}
-                <Text>{batteryStatus}</Text>
-                <Text>{os}</Text>
-                <Text>{bookedBy}</Text>
-                <Text>{dateofBook}</Text>
+                <Text>{device.batteryStatus}</Text>
+                <Text>{device.os}</Text>
+                <Text>{device.bookedBy}</Text>
+                <Text>{device.dateofBook}</Text>
               </CardSection>
               <DeviceItemControls device={device} user={user}/>
             </View>
@@ -73,6 +65,18 @@ const styles = StyleSheet.create({
   },
   headerTextStyle: {
     fontSize: 18
+  },
+  statusTextRedStyle: {
+    backgroundColor: 'red',
+    color: 'white',
+    width: 70,
+    textAlign: 'center'
+  },
+  statusTextGreenStyle: {
+    backgroundColor: 'green',
+    color: 'white',
+    width: 70,
+    textAlign: 'center'
   },
   imageStyle: {
     height: 200,

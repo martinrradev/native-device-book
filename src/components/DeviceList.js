@@ -8,11 +8,20 @@ import _ from 'lodash';
 
 class DeviceList extends Component {
   /**
-   * componentWillMount lifecycle hook
+   * General component constructor
    *
-   * @method componentWillMount
+   * @method constructor
    */
-	componentWillMount() {
+  constructor(props) {
+    super(props);
+  }
+
+  /**
+   * componentDidMount lifecycle hook
+   *
+   * @method componentDidMount
+   */
+	componentDidMount() {
 		this.props.devicesFetch();
   }
 

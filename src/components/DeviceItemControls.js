@@ -27,7 +27,6 @@ class DeviceItemControls extends Component {
    * @method delete
    */
   delete(device) {
-    console.log('Delete device ', device.name);
     this.setState({ showModal: false });
     this.props.deleteDevice(device);
   }
@@ -48,7 +47,6 @@ class DeviceItemControls extends Component {
    * @method book
    */
   book(device) {
-    console.log('book', device);
     Actions.deviceFormMain({ device, isBooking: true });
   }
 
