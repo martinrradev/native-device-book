@@ -4,8 +4,20 @@ import { Card, CardSection, Input, Button, Spinner } from './common';
 import { updateDevice, teamsFetch } from '../actions';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { View, Image, StyleSheet, ScrollView } from 'react-native';
+import { Card, CardSection, Input, Button } from './common';
 
-class DeviceForm extends Component {
+class DeviceEditForm extends Component {
+  /**
+   * Show booking controls to the user
+   *
+   * @param {Object} device
+   * @method edit
+   */
+  edit(device) {
+    console.log('Book', device);
+  }
+
   /**
    * General component constructor
    *
@@ -155,9 +167,39 @@ class DeviceForm extends Component {
     const isBooking = this.props.isBooking;
 
     return (
+<<<<<<< HEAD:src/components/DeviceForm.js
       <TouchableWithoutFeedback>
         {this.showSpinner(device, isBooking)}
       </TouchableWithoutFeedback>
+=======
+      <ScrollView>
+        <View style={styles.cardContainer}>
+          <Card>
+            <CardSection>
+              <Image style={styles.imageStyle} source={{ uri: device.firebaseImgURL }}/>
+            </CardSection>
+            <CardSection>
+              <Input label="Manufacturer:" placeholder="Google" onChangeText={() => {}} value={device.manufacturer}></Input>
+            </CardSection>
+            <CardSection>
+              <Input label="Model:" placeholder="Pixel 2" onChangeText={() => {}} value={device.name}></Input>
+            </CardSection>
+            <CardSection>
+              <Input label="OS:" placeholder="Android" onChangeText={() => {}} value={device.os}></Input>
+            </CardSection>
+            <CardSection>
+              <Input label="OS version:" placeholder="Pie 9.0.0" onChangeText={() => {}} value={device.osVersion}></Input>
+            </CardSection>
+            <CardSection>
+              <Input label="Type:" placeholder="phone" onChangeText={() => {}} value={device.type}></Input>
+            </CardSection>
+            <CardSection style={styles.CardSectionContainer}>
+              <Button onPress={() => this.edit(device)}>Edit</Button>
+            </CardSection>
+          </Card>
+        </View>
+      </ScrollView>
+>>>>>>> master:src/components/DeviceEditForm.js
     );
   }
 }
@@ -183,6 +225,7 @@ const styles = StyleSheet.create({
   }
 })
 
+<<<<<<< HEAD:src/components/DeviceForm.js
 
 const mapStateToProps = state => {
   console.log(state);
@@ -194,3 +237,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, { teamsFetch, updateDevice })(DeviceForm);
+=======
+export default DeviceEditForm;
+>>>>>>> master:src/components/DeviceEditForm.js

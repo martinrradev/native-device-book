@@ -15,31 +15,35 @@ class DeviceItemControls extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { showModal: false };
+    this.state = {
+      showModal: false
+    };
   }
 
   /**
    * Send device delete request
    *
-   * @method deleteDevice
-   * @return {Obejct} TODO: to be updated
+   * @param {Object} device
+   * @method delete
    */
   delete(device) {
+    console.log('Delete device ', device.name);
     this.setState({ showModal: false });
     this.props.deleteDevice(device);
   }
 
   /**
-   * Navigate to edin screen and pass specific device
+   * Send update request and return device
    *
-   * @method edit
+   * @param {Object} device
+   * @method return
    */
   edit(device) {
     Actions.deviceFormAdmin({ device , isBooking: false });
   }
 
   /**
-   * Show booking controls to the user
+   * Navigate to edin screen and pass specific device
    *
    * @method book
    */
@@ -72,10 +76,10 @@ class DeviceItemControls extends Component {
       return (
         <View>
           <CardSection style={styles.CardSectionContainer}>
-            <Button style={ styles.test } onPress={() => this.edit(device)}>Edit Device</Button>
+            <Button onPress={() => this.edit(device)}>Edit Device</Button>
           </CardSection>
           <CardSection style={styles.CardSectionContainer}>
-            <Button style={ styles.test } onPress={() => this.setState({ showModal: true })}>Delete Device</Button>
+            <Button onPress={() => this.setState({ showModal: true })}>Delete Device</Button>
           </CardSection>
 
           <Confirm
@@ -93,7 +97,7 @@ class DeviceItemControls extends Component {
   /**
    * Check if user is auth and show booking controls
    *
-   * @method showBookControls
+   * @method showBookingControls
    * @return {Obejct}
    */
   showBookControls(user, device) {
@@ -157,7 +161,7 @@ class DeviceItemControls extends Component {
         {this.showSpinner()}
 
         {this.showAdminControls(user, device)}
-        {this.showBookControls(user, device)}
+        {this.showBookingControls(user, device)}
       </View>
     );
   }
