@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { FlatList, View } from 'react-native';
 import { devicesFetch } from '../actions';
 import DeviceItem from './DeviceItem';
 import { Spinner } from './common';
+import _ from 'lodash';
 
 class DeviceList extends Component {
   /**
@@ -33,9 +33,9 @@ class DeviceList extends Component {
    * @return {Object} Spinner
    */
   showSpinner() {
-    const isloading = this.props.isLoading;
+    const isLoading = this.props.isLoading;
 
-    if (isloading) {
+    if (isLoading) {
       return <Spinner/>
     }
   }

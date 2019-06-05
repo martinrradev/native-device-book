@@ -11,13 +11,14 @@ const RouterComponent = () => {
       <Scene key="root">
         <Scene key="main">
           <Scene key="deviceList" component={DeviceList} title="Devices" rightTitle="Login" initial onRight={() => Actions.auth()}></Scene>
+          <Scene key="deviceFormMain" component={DeviceForm} title="Book Device"></Scene>
         </Scene>
         <Scene key="auth" hide>
           <Scene key="login" component={LoginForm} title="Please login"></Scene>
         </Scene>
         <Scene key="admin" hide>
           <Scene key="adminPanel" component={AdminPanel} title="Devices" rightTitle="Create" onRight={() => Actions.createDevice()}></Scene>
-          <Scene key="deviceForm" component={DeviceForm} title="Create Device" rightTitle="Create"></Scene>
+          <Scene key="deviceFormAdmin" component={DeviceForm} title="Update Device" rightTitle="Create"></Scene>
         </Scene>
       </Scene>
     </Router>

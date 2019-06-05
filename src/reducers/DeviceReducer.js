@@ -12,6 +12,8 @@ import {
 const INITIAL_STATE = { list: [], loading: '' };
 
 export default (state = INITIAL_STATE, action) => {
+  const devices = state.list;
+
 	switch (action.type) {
     case DEVICES_REQUEST_STARTED:
       return Object.assign({}, state, { loading: true });
@@ -22,19 +24,28 @@ export default (state = INITIAL_STATE, action) => {
   	case DEVICES_FETCH_FAILED:
       return Object.assign({}, state, INITIAL_STATE); // needs to be updated
     case DEVICE_DELETE_SUCCESS:
-      const devices = state.list;
-      const deletedIndex = devices.findIndex(device => device.id === action.id);
+      const deletedIndex = devices.findIndex(device => device.externalId === action.device.externalId);
 
       return Object.assign({}, state, {
-        list: [
-        ...devices.slice(0, deletedIndex),
-        ...devices.slice(deletedIndex + 1)
-      ]
-    });
+            list: [
+            ...devices.slice(0, deletedIndex),
+            ...devices.slice(deletedIndex + 1)
+          ]
+        });
     case DEVICE_DELETE_FAILED:
       return Object.assign({}, state, INITIAL_STATE); // needs to be updated
     case DEVICE_UPDATE_SUCCESS:
-      return Object.assign({}, state, { list: action.payload });
+      const updatedDevice = action.device;
+      const updatedDeviceExternalId = action.device.externalId;
+      const updatedIndex = devices.findIndex(device => device.externalId === updatedDeviceExternalId);
+
+      return Object.assign({}, state, {
+        list: [
+          ...devices.slice(0, updatedIndex),
+          Object.assign({}, devices[updatedIndex], updatedDevice),
+          ...devices.slice(updatedIndex + 1)
+          ]
+      });
     case DEVICE_UPDATE_FAILED:
       return Object.assign({}, state, INITIAL_STATE); // needs to be updated
 		default:

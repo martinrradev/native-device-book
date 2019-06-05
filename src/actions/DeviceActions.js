@@ -1,5 +1,6 @@
 const firebase = require("firebase");
 require("firebase/firestore");
+import { Actions } from 'react-native-router-flux';
 import {
   DEVICES_REQUEST_STARTED,
   DEVICES_REQUEST_END,
@@ -26,10 +27,11 @@ export const devicesFetch = () => {
       let payload = [];
       querySnapshot.forEach(doc => {
         const data = doc.data();
-        data.id = doc.id;
+        data.externalId = doc.id;
 
         payload.push(data);
-      })
+      });
+
       dispatch({ type: DEVICES_FETCH_SUCCESS, payload })
     })
     .catch((err) => {
@@ -47,7 +49,9 @@ export const devicesFetch = () => {
  * @method deleteDevice
  * @return {Obejct} the new state
  */
-export const deleteDevice = ({ id }) => {
+export const deleteDevice = (device) => {
+  const id = device.externalId;
+
   return (dispatch) => {
     dispatch({ type: DEVICES_REQUEST_STARTED });
 
@@ -57,7 +61,7 @@ export const deleteDevice = ({ id }) => {
       return document.ref.delete();
     })
     .then(() => {
-      dispatch({ type: DEVICE_DELETE_SUCCESS, id })
+      dispatch({ type: DEVICE_DELETE_SUCCESS, device })
     })
     .catch((err) => {
       dispatch({ type: DEVICE_DELETE_FAILED, err })
@@ -74,23 +78,23 @@ export const deleteDevice = ({ id }) => {
  * @method updateDevice
  * @return {Obejct} the new state
  */
-export const updateDevice = ({ id }) => {
+export const updateDevice = (device) => {
+  const id = device.externalId;
+
   return (dispatch) => {
     dispatch({ type: DEVICES_REQUEST_STARTED });
 
     firebase.firestore().collection('devices').doc(id)
-    .get()
-    .then((document) => {
-      return document.ref.delete();
-    })
+    .update(device)
     .then(() => {
-      dispatch({ type: DEVICE_UPDATE_SUCCESS, id })
+      dispatch({ type: DEVICE_UPDATE_SUCCESS, device })
     })
     .catch((err) => {
       dispatch({ type: DEVICE_UPDATE_FAILED, err })
     })
     .finally(() => {
       dispatch({ type: DEVICES_REQUEST_END })
+      Actions.deviceList();
     })
   }
 }
