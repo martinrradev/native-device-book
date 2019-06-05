@@ -159,9 +159,8 @@ class DeviceItemControls extends Component {
     return (
       <View>
         {this.showSpinner()}
-
         {this.showAdminControls(user, device)}
-        {this.showBookingControls(user, device)}
+        {this.showBookControls(user, device)}
       </View>
     );
   }
